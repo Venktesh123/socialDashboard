@@ -1,7 +1,10 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TestFirebaseConnection from './components/getFarmerdata.jsx';
 import OrderData from './components/gerOrderData.jsx';
+import FarmerRegistration from './FarmerRegistration/FarmerRegistration.jsx';
+import './App.css'; // Import the CSS file
 
 const Home = () => (
     <div>
@@ -14,21 +17,23 @@ const App = () => {
     return (
         <Router>
             <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/orderDetails">Order Details</Link>
-                        </li>
-                        <li>
-                            <Link to="/farmerDetails">Farmer Details</Link>
-                        </li>
-                    </ul>
-                </nav>
+                <div className='navbar'>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/orderDetails">Order Details</Link>
+                            </li>
+                            <li>
+                                <Link to="/farmerDetails">Farmer Details</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<FarmerRegistration />} />
                     <Route path="/orderDetails" element={<OrderData />} />
                     <Route path="/farmerDetails" element={<TestFirebaseConnection />} />
                 </Routes>
