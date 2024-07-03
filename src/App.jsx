@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import UserData from "./components/UserData.jsx";
+import TestFirebaseConnection from './components/getFarmerdata.jsx'
 
 const API = "https://jsonplaceholder.typicode.com/users";
 
@@ -13,7 +14,6 @@ const App = () => {
             if (data.length > 0) {
                 setUsers(data);
             }
-            console.log(data);
         } catch (e) {
             console.error(e)
         }
@@ -37,6 +37,7 @@ const App = () => {
             <UserData users={users}/>
             </tbody>
         </table>
+        <TestFirebaseConnection/>
     </>
 }
 
