@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useFirebase } from './Context/Firebase'; // Adjust the import path accordingly
 import { collection, getDocs } from 'firebase/firestore';
-import FarmerTable from '../components/FarmerTable/table'
+import OrderTable from '../components/OrderTable/table.jsx';
 
 const GetFarmerData = () => {
   const { db } = useFirebase();
   const [data, setData] = useState([]);
-  console.log(data,"data");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db
-            , 'farmers'));
+        const querySnapshot = await getDocs(collection(db, 'orders'));
         const dataArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setData(dataArray);
+        console.log(dataArray,"dataArray");
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
     };
 
-    fetchData();
+    if (db) {
+      fetchData();
+    }
   }, [db]);
 
   return (
     <div>
-      <FarmerTable  users={data}/>
-      {/* <h1>Farmers Data</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>{JSON.stringify(item)}</li>
-        ))}
-      </ul> */}
+      <h1>Orders Data</h1>
+      <OrderTable orders={data} />
     </div>
   );
 };

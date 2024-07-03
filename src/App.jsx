@@ -1,6 +1,9 @@
 import {useEffect, useState} from "react";
 import UserData from "./components/UserData.jsx";
 import TestFirebaseConnection from './components/getFarmerdata.jsx'
+import {Link} from 'react-router-dom'
+
+import OrderData from './components/gerOrderData.jsx'
 
 const API = "https://jsonplaceholder.typicode.com/users";
 
@@ -24,7 +27,7 @@ const App = () => {
         fetchUsers(API);
     }, [])
     return <>
-        <table>
+        {/* <table>
             <thead>
             <tr>
                 <th>ID</th>
@@ -36,7 +39,8 @@ const App = () => {
             <tbody>
             <UserData users={users}/>
             </tbody>
-        </table>
+        </table> */}
+        <OrderData/>
         <TestFirebaseConnection/>
     </>
 }
