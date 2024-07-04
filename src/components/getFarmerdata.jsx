@@ -6,7 +6,6 @@ import FarmerTable from '../components/FarmerTable/table'
 const GetFarmerData = () => {
   const { db } = useFirebase();
   const [data, setData] = useState([]);
-  console.log(data,"data");
 
   useEffect(() => {
     const fetchData = async () => {
