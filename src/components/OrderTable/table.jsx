@@ -25,7 +25,7 @@ const OrderTable = ({ orders }) => {
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>{order.user?.name}</td>
-              <td>{order.user?.mobile}</td>
+              <td>{order.user?.phone}</td>
               <td>{order.user?.email}</td>
               <td>{smallGoats}</td>
               <td>{largeGoats}</td>
