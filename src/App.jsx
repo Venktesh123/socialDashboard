@@ -6,6 +6,7 @@ import OrderData from './components/gerOrderData.jsx';
 import FarmerRegistration from './FarmerRegistration/FarmerRegistration.jsx';
 import Promocode from '../src/components/promocodeData.jsx'
 import './App.css'; // Import the CSS file
+import CreatePromoCode from './components/createPromocode.jsx'
 
 const Home = () => (
     <div>
@@ -33,6 +34,9 @@ const App = () => {
                             <li>
                                 <Link to="/promocodeDetails">Promocode Details</Link>
                             </li>
+                            <li>
+                                <Link to="/promocodeCreate">Create Promocode</Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -41,6 +45,8 @@ const App = () => {
                     <Route path="/orderDetails" element={<OrderData />} />
                     <Route path="/farmerDetails" element={<TestFirebaseConnection />} />
                     <Route path="/promocodeDetails" element={<Promocode/>} />
+                    <Route path="/promocodeCreate" element={<CreatePromoCode/>} />
+                    
                 </Routes>
             </div>
         </Router>
