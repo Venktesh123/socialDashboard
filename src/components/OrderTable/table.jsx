@@ -1,48 +1,51 @@
-import React from "react";
-import './table.css'; // Import your CSS file here
+import React from 'react';
 
-const UserTable = ({ orders }) => {
-    console.log(orders,"orders");
+const OrderTable = ({ orders }) => {
   return (
-    <table className="custom-table">
+    <table>
       <thead>
         <tr>
           <th>Order ID</th>
+          <th>User Name</th>
+          <th>Phone</th>
+          <th>Email</th>
           <th>Small Goats</th>
           <th>Large Goats</th>
           <th>Order Value</th>
-          <th>User Phone</th>
-          <th>Email</th>
-          <th>Time of Order</th>
+          <th>Order Time</th>
+          <th>Items</th>
         </tr>
       </thead>
       <tbody>
-        {orders.map(order => (
-          <tr key={order.orderId}>
-            <td>{order.orderId}</td>
-            <td>{getGoatQuantity(order.cartItems, 'Small Goat')}</td>
-            <td>{getGoatQuantity(order.cartItems, 'Large Goat')}</td>
-            <td>{order.orderValue}</td>
-            <td>{order.selectedFarmer.mobile}</td>
-            <td>{order.uid}</td> {/* Assuming UID is used as email */}
-            <td>{formatDate(order.date)}</td>
-          </tr>
-        ))}
+        {orders.map(order => {
+          const smallGoats = order.cartItems.filter(item => item.title === 'Small Goat').reduce((sum, item) => sum + item.quantity, 0);
+          const largeGoats = order.cartItems.filter(item => item.title === 'Large Goat').reduce((sum, item) => sum + item.quantity, 0);
+
+          return (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.user?.name}</td>
+              <td>{order.user?.mobile}</td>
+              <td>{order.user?.email}</td>
+              <td>{smallGoats}</td>
+              <td>{largeGoats}</td>
+              <td>{order.orderValue}</td>
+              <td>{new Date(order.date).toLocaleString()}</td>
+              <td>
+                <ul>
+                  {order.cartItems.map(item => (
+                    <li key={item.id}>
+                      {item.title} - {item.quantity} x {item.price}
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
 };
 
-// Helper function to get quantity of a specific type of goat
-const getGoatQuantity = (cartItems, goatType) => {
-  const goat = cartItems.find(item => item.title === goatType);
-  return goat ? goat.quantity : 0;
-};
-
-// Helper function to format date
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleString();
-};
-
-export default UserTable;
+export default OrderTable;

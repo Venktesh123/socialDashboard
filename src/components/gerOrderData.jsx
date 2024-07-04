@@ -5,15 +5,23 @@ import OrderTable from '../components/OrderTable/table.jsx';
 
 const GetFarmerData = () => {
   const { db } = useFirebase();
-  const [data, setData] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'orders'));
-        const dataArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setData(dataArray);
-        console.log(dataArray,"dataArray");
+        const ordersSnapshot = await getDocs(collection(db, 'orders'));
+        const usersSnapshot = await getDocs(collection(db, 'users'));
+
+        const users = usersSnapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
+
+        const ordersWithUserInfo = ordersSnapshot.docs.map(doc => {
+          const order = { id: doc.id, ...doc.data() };
+          const user = users.find(user => user.uid === order.uid);
+          return { ...order, user };
+        });
+
+        setOrders(ordersWithUserInfo);
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
@@ -27,7 +35,7 @@ const GetFarmerData = () => {
   return (
     <div>
       <h1>Orders Data</h1>
-      <OrderTable orders={data} />
+      <OrderTable orders={orders} />
     </div>
   );
 };
