@@ -1,44 +1,56 @@
-import {useEffect, useState} from "react";
-import UserData from "./components/UserData.jsx";
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import TestFirebaseConnection from './components/getFarmerdata.jsx';
+import OrderData from './components/gerOrderData.jsx';
+import FarmerRegistration from './FarmerRegistration/FarmerRegistration.jsx';
+import Promocode from '../src/components/promocodeData.jsx'
+import './App.css'; // Import the CSS file
+import CreatePromoCode from './components/createPromocode.jsx'
 
-const API = "https://jsonplaceholder.typicode.com/users";
+const Home = () => (
+    <div>
+        <h1>Home Page</h1>
+        {/* Your Home Page Content */}
+    </div>
+);
 
 const App = () => {
-    const [users, setUsers] = useState([]);
-
-    const fetchUsers = async (url) => {
-        try {
-            const res = await fetch(url);
-            const data = await res.json();
-            if (data.length > 0) {
-                setUsers(data);
-            }
-            console.log(data);
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-
-    useEffect(() => {
-        fetchUsers(API);
-    }, [])
-    return <>
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-            </tr>
-            </thead>
-            <tbody>
-            <UserData users={users}/>
-            </tbody>
-        </table>
-    </>
-}
+    return (
+        <Router>
+            <div>
+                <div className='navbar'>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/orderDetails">Order Details</Link>
+                            </li>
+                            <li>
+                                <Link to="/farmerDetails">Farmer Details</Link>
+                            </li>
+                            <li>
+                                <Link to="/promocodeDetails">Promocode Details</Link>
+                            </li>
+                            <li>
+                                <Link to="/promocodeCreate">Create Promocode</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <Routes>
+                    <Route path="/" element={<FarmerRegistration />} />
+                    <Route path="/orderDetails" element={<OrderData />} />
+                    <Route path="/farmerDetails" element={<TestFirebaseConnection />} />
+                    <Route path="/promocodeDetails" element={<Promocode/>} />
+                    <Route path="/promocodeCreate" element={<CreatePromoCode/>} />
+                    
+                </Routes>
+            </div>
+        </Router>
+    );
+};
 
 export default App;
-

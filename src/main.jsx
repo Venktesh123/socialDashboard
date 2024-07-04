@@ -1,10 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+// index.js or App.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { FirebaseProvider } from '../src/components/Context/Firebase'; // Adjust the import path accordingly
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+ReactDOM.render(
+  <FirebaseProvider>
     <App />
-  </React.StrictMode>,
-)
+  </FirebaseProvider>,
+  document.getElementById('root')
+);
